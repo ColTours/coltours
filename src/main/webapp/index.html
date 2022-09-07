@@ -10,9 +10,79 @@
     
     </head>
     <body>
-        <div class="container-fluid p-5 bg-primary text-white text-center">
-        <h1>Coltours</h1>
-        <h4>Viaja por Colombia!</h4>
+        
+              <nav class="navbar navbar-expand-sm navbar-dark bg-info">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="./img/logo.png" alt="logo" width="200">
+                    </a>
+
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toogle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item"><a class="nav-link active" href="#registro">Registrar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#Nosotros">Nosotros</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#coltours">Planes</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#experiencias">Experiencias</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#reservas">Reservaciones</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#contactar">Contacto</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        <!--CARROUSEL-->
+        <div class="carousel slide  " id="mainSlider" data-ride="carousel">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="./img/canhoCristales.jpg" class="d-block w-100" alt="Caño de cristales">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/cuandinamarca.jpg" class="d-block w-100" alt="Cundinamarca">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/ejeCafetero.jpg" class="d-block w-100" alt="Eje cafetero">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/guajira.jpg" class="d-block w-100" alt="Guajira">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/orquideas.jpg" class="d-block w-100" alt="Orquideas">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/barranquillaVentana.jpg" class="d-block w-100" alt="Barranquilla">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./img/tamesis.jpg" class="d-block w-100" alt="Tamesis">
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
         </div>
+        
+        <!--NOSOTROS-->
+        <div class="nosotros" id="Nosotros">
+            <h2>¿Quiénes somos?</h2>
+            <p class="parrafo">Somos un equipo que busca el bienestar de nuestros viajeros, brindándoles comodidad, economía y planes turísticos increíbles. Contamos con diferentes planes turísticos en todo Colombia, además de tener convenio con todas las entidades de transporte aéreo y transporte terrestre. Nuestro principal objetivo es que nuestros clientes nos elijan  por ser la mejor empresa a nivel Nacional, y que esta afirmación sea dicha del boca a boca de nuestros usuarios.</p>
+        </div>
+
+
     </body>
 </html>
