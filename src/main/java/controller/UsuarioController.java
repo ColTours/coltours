@@ -44,14 +44,12 @@ public class UsuarioController  implements IUsuarioController {
     }
     
     @Override
-    public String register(String id_usuario, String contrasena, String nombre, String apellidos, String email,
-            String direccion, String  ciudad, String  telefono ) {
+    public String register(String id_usuario, String contrasena, String nombre, String apellidos, String email, String direccion, String  ciudad, String  telefono ) {
 
         Gson gson = new Gson();
 
         DBConnection con = new DBConnection();
-        String sql = "Insert into usuario values('" + id_usuario + "', '" + contrasena + "', '" + nombre
-                + "', '" + apellidos + "', '" + email + "', ' " + direccion + " ',' " + ciudad + "',' " + telefono + " )";
+        String sql = "Insert into usuario values('" + id_usuario + "', '" + contrasena + "', '" + nombre+ "', '" + apellidos + "', '" + email + "', ' " + direccion + " ',' " + ciudad + "',' " + telefono + "')";
 
         try {
             Statement st = con.getConnection().createStatement();
