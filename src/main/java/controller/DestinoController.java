@@ -22,10 +22,10 @@ public class DestinoController implements IDestinoController {
         String sql = "Select * from destino";
 
         if (ordenar == true) {
-            sql += " order by destinos " + orden;
+            sql += " order by planes " + orden;
         }
 
-        List<String> destino = new ArrayList<String>();
+        List<String> destinos = new ArrayList<String>();
 
         try {
 
@@ -44,7 +44,7 @@ public class DestinoController implements IDestinoController {
 
                 Destino destino = new Destino(id_destino, planes, precio, ciudad); //copias, novedad);
 
-                Destino.add(gson.toJson(destino));
+                destinos.add(gson.toJson(destino));
 
             }
         } catch (Exception ex) {
@@ -53,7 +53,7 @@ public class DestinoController implements IDestinoController {
             con.desconectar();
         }
 
-        return gson.toJson(destino);
+        return gson.toJson(destinos);
 
     }
     

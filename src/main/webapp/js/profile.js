@@ -115,15 +115,15 @@ function mostrarHistorial(destino) {
 }
 
 
-function devolverPelicula(id) {
+function devolverDestino(id_destino) {
 
     $.ajax({
         type: "GET",
         dataType: "html",
-        url: "./ServletPeliculaDevolver",
+        url: "./ServletDestinoDevolver",  //ServletPeliculaDevolver
         data: $.param({
             id_usuario: id_usuario,
-            id: id,
+            id_destino: id_destino,
         }),
         success: function (result) {
 
@@ -132,7 +132,7 @@ function devolverPelicula(id) {
                 location.reload();
 
             } else {
-                console.log("Error devolviendo el Pelicula");
+                console.log("Error al devolver el plan/destino");
             }
         }
     });
@@ -146,8 +146,11 @@ function modificarUsuario() {
     let nombre = $("#input-nombre").val();
     let apellidos = $("#input-apellidos").val();
     let email = $("#input-email").val();
-    let saldo = $("#input-saldo").val();
-    let premium = $("#input-premium").prop('checked');
+    let direccion = $("#input-direccion").val();
+    let ciudad = $("#input-ciudad").val();
+    let telefono = $("#input-telefono").val();
+    //let saldo = $("#input-saldo").val();
+    //let premium = $("#input-premium").prop('checked');
     $.ajax({
         type: "GET",
         dataType: "html",
@@ -158,8 +161,11 @@ function modificarUsuario() {
             nombre: nombre,
             apellidos: apellidos,
             email: email,
-            saldo: saldo,
-            premium: premium,
+            direccion: direccion,
+            ciudad: ciudad,
+            telefono: telefono,
+            //saldo: saldo,
+            //premium: premium,
         }),
         success: function (result) {
 

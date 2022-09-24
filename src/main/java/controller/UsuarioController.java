@@ -142,6 +142,7 @@ public class UsuarioController implements IUsuarioController {
 
     }
 
+    
     @Override
     public String verCopias(String id_usuario) {
 
@@ -175,7 +176,8 @@ public class UsuarioController implements IUsuarioController {
         return "false";
 
     }
-
+    
+    
     @Override
     public String devolverDestino(String id_usuario, Map<Integer, Integer> ciudad) {
 
@@ -202,7 +204,9 @@ public class UsuarioController implements IUsuarioController {
         }
         return "false";
     }
-
+    
+    
+    
     public String eliminar(String id_usuario) {
 
         DBConnection con = new DBConnection();
