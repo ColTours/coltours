@@ -51,5 +51,5 @@ public class Destino {
         return "Destino{" + "id_destino=" + id_destino + ", planes=" + planes + ", precio=" + precio + ", ciudad=" + ciudad + '}';
     }
 
-   
+    
 }

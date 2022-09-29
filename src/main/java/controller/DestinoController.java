@@ -19,10 +19,10 @@ public class DestinoController implements IDestinoController {
         Gson gson = new Gson();
 
         DBConnection con = new DBConnection();
-        String sql = "Select * from destino";
+        String sql = "SELECT * FROM destino";
 
         if (ordenar == true) {
-            sql += " order by planes " + orden;
+            sql += " order by ciudad " + orden;
         }
 
         List<String> destinos = new ArrayList<String>();
@@ -39,17 +39,22 @@ public class DestinoController implements IDestinoController {
                 Double precio =rs.getDouble("precio");
                 String ciudad = rs.getString("ciudad");
                 //String autor = rs.getString("autor");
-                //int copias = rs.getInt("copias");
-                //boolean novedad = rs.getBoolean("novedad");
+               // int copias = rs.getInt("copias");
+               //boolean novedad = rs.getBoolean("novedad");
 
                 Destino destino = new Destino(id_destino, planes, precio, ciudad); //copias, novedad);
 
                 destinos.add(gson.toJson(destino));
+                //System.out.println(destino.toString());
 
             }
-        } catch (Exception ex) {
+            //st.executeQuery(sql);
+            
+        } 
+        catch (Exception ex) {
             System.out.println(ex.getMessage());
-        } finally {
+        } 
+        finally {
             con.desconectar();
         }
 
@@ -87,6 +92,52 @@ public class DestinoController implements IDestinoController {
 
         String sql = "Update destino set ciudad = (Select ciudad from destino where id_destino = " 
                 + id_destino+ ") + 1 where id_destino = " + id_destino;
+
+        try {
+            Statement st = con.getConnection().createStatement();
+            st.executeUpdate(sql);
+
+            return "true";
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            con.desconectar();
+        }
+
+        return "false";
+
+    }
+    
+   @Override
+    public String reservar(int id_destino, String id_usuario) {
+
+        Timestamp fecha_inicio = new Timestamp(new Date().getTime());
+        DBConnection con = new DBConnection();
+        String sql = "Insert into reservacion values ('" + id_destino + "', '" + id_usuario + "', '" + fecha_inicio + "')";
+
+        try {
+            Statement st = con.getConnection().createStatement();
+            st.executeUpdate(sql);
+
+            String modificar = modificar(id_destino);
+
+            if (modificar.equals("true")) {
+                return "true";
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            con.desconectar();
+        }
+        return "false";
+    }
+
+    @Override
+    public String modificar(int id_destino) {
+
+        DBConnection con = new DBConnection();
+        String sql = "Update destino set ciudad = (ciudad - 1) where id_destino = " + id_destino;
 
         try {
             Statement st = con.getConnection().createStatement();

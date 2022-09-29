@@ -35,7 +35,8 @@ public class ServletDestinoListar extends HttpServlet {
                 
                 boolean ordenar = Boolean.parseBoolean(request.getParameter("ordenar"));
                 String orden = request.getParameter("orden");
-		String id_usuario = request.getParameter("id_usuario");
+                
+		//String id_usuario = request.getParameter("id_usuario");
 		
 		String destinoStr = destino.listar(ordenar, orden);
 		

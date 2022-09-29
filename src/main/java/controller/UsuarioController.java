@@ -49,7 +49,8 @@ public class UsuarioController implements IUsuarioController {
         Gson gson = new Gson();
 
         DBConnection con = new DBConnection();
-        String sql = "Insert into usuario values('" + id_usuario + "', '" + contrasena + "', '" + nombre+ "', '" + apellidos + "', '" + email + "', ' " + direccion + " ',' " + ciudad + "',' " + telefono + "')";
+        String sql = "Insert into usuario values('" + id_usuario + "', '" + contrasena + "', '" + nombre
+                + "', '" + apellidos + "', '" + email + "', '" + direccion + "','" + ciudad + "','" + telefono + "')";
 
 
         try {
@@ -138,7 +139,7 @@ public class UsuarioController implements IUsuarioController {
             con.desconectar();
         }
 
-        return "false";
+        return "false"; //
 
     }
 
@@ -147,10 +148,10 @@ public class UsuarioController implements IUsuarioController {
     public String verCopias(String id_usuario) {
 
         DBConnection con = new DBConnection();
-        String sql = "Select id_destino, count(*) as num_ciudad from alquiler where id_usuario = '"
-                + id_usuario + "' group by id_destino;";   //num_copias por num_ciudad
+        String sql = "Select id_destino, count(*) as num_ciudad from reservacion where id_usuario = '"
+                + id_usuario + "' group by id_destino";   //num_copias por num_ciudad
 
-        Map<Integer, Integer> copias = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> ciudad = new HashMap<Integer, Integer>();
 
         try {
 
@@ -161,10 +162,10 @@ public class UsuarioController implements IUsuarioController {
                 int id_destino = rs.getInt("id_destino");
                 int num_ciudad = rs.getInt("num_ciudad");
 
-                copias.put(id_destino, num_ciudad);
+                ciudad.put(id_destino, num_ciudad);
             }
 
-            devolverDestino(id_usuario, copias);
+            devolverDestino(id_usuario, ciudad);
 
             return "true";
         } catch (Exception ex) {
@@ -188,8 +189,8 @@ public class UsuarioController implements IUsuarioController {
                 int id_destino = destino.getKey();
                 int num_ciudad = destino.getValue();
 
-                String sql = "Update destino set ciudad = (Select copias + " + num_ciudad +
-                        " from pelicula where id_destino = " + id_destino + ") where id_destino = " + id_destino;
+                String sql = "Update destino set ciudad = (Select ciudad + " + num_ciudad +
+                        " from destino where id_destino = " + id_destino + ") where id_destino = " + id_destino;
 
                 Statement st = con.getConnection().createStatement();
                 st.executeUpdate(sql);
@@ -211,7 +212,7 @@ public class UsuarioController implements IUsuarioController {
 
         DBConnection con = new DBConnection();
 
-        String sql1 = "Delete from destino where id_usuario = '" + id_usuario + "'";
+        String sql1 = "Delete from reservacion where id_usuario = '" + id_usuario + "'";
         String sql2 = "Delete from usuario where id_usuario = '" + id_usuario + "'";
 
         try {
@@ -228,5 +229,25 @@ public class UsuarioController implements IUsuarioController {
 
         return "false";
     }
-    
+   
+    @Override
+    public String restarDinero(String id_usuario, double nuevoSaldo) {  //NO ESTA EN LA BD.
+
+        DBConnection con = new DBConnection();
+        String sql = "Update usuario set saldo = " + nuevoSaldo + " where id_usuario = '" + id_usuario + "'";
+
+        try {
+
+            Statement st = con.getConnection().createStatement();
+            st.executeUpdate(sql);
+
+            return "true";
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            con.desconectar();
+        }
+
+        return "false";
+    }
 }

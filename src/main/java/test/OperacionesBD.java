@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class OperacionesBD {
     public static void main(String[] args) {
-     // actualizarDestino(1,"Santa Marta 2"); 
+    //actualizarDestino(2,"Mingueo"); 
      listarDestino();
         
     }

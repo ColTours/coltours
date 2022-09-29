@@ -21,9 +21,9 @@ public class ReservacionController implements IReservacionController {
 
         DBConnection con = new DBConnection();
 
-        String sql = "Select l.id_destino, l.titulo, l.genero, l.novedad, a.fecha from pelicula l "
-                + "inner join alquiler a on l.id_destino = a.id_destino inner join usuarios u on a.id_usuario = u.id_usuario "
-                + "where a.id_usuario = '" + id_usuario + "'";
+        String sql = "Select d.id_destino, d.planes, d.precio, d.ciudad, r.fecha_inicio, r.fecha_fin from destino d "
+                + "inner join reservacion r on d.id_destino = r.id_destino inner join usuario u on r.id_usuario = u.id_usuario "
+                + "where r.id_usuario = '" + id_usuario + "'";
 
         List<String> reservaciones = new ArrayList<String>();
 

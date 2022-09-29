@@ -16,8 +16,10 @@ import java.util.Map;
      
      public String verCopias(String id_usuario);
      
-     public String devolverDestino(String id_usuario, Map<Integer, Integer> copias);
+     public String devolverDestino(String id_usuario, Map<Integer, Integer> ciudad);
 
     public String eliminar(String id_usuario);
+    
+    public String restarDinero(String id_usuario, double nuevoSaldo);
     
 }

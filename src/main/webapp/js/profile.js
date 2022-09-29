@@ -6,9 +6,9 @@ $(document).ready(function () {
 
     fillUsuario().then(function () {
 
-        $("#user-saldo").html("$" + user.saldo.toFixed());
+       // $("#user-saldo").html("$" + user.saldo.toFixed());
 
-        getAlquiladas(user.id_usuario);
+      getAlquiladas(user.id_usuario);
     });
 
     $("#reservar-btn").attr("href", `home.html?id_usuario=${id_usuario}`);
@@ -34,7 +34,7 @@ async function fillUsuario() {
         dataType: "html",
         url: "./ServletUsuarioPedir",
         data: $.param({
-            id_usuario: id_usuario,
+            id_usuario: id_usuario
         }),
         success: function (result) {
             let parsedResult = JSON.parse(result);
@@ -42,7 +42,7 @@ async function fillUsuario() {
             if (parsedResult != false) {
                 user = parsedResult;
 
-                $("#input-username").val(parsedResult.id_usuario);
+                $("#input-id_usuario").val(parsedResult.id_usuario);
                 $("#input-contrasena").val(parsedResult.contrasena);
                 $("#input-nombre").val(parsedResult.nombre);
                 $("#input-apellidos").val(parsedResult.apellidos);
@@ -68,7 +68,7 @@ function getAlquiladas(id_usuario) {    ///método que averiguar
         dataType: "html",
         url: "./ServletDestinoListar",
         data: $.param({
-            id_usuario: id_usuario,
+            id_usuario: id_usuario
         }),
         success: function (result) {
             let parsedResult = JSON.parse(result);
@@ -94,14 +94,14 @@ function mostrarHistorial(destino) {
                     '<td>' + destino.planes + '</td>' +
                     '<td>' + destino.precio + '</td>' +
                     '<td>' + destino.ciudad + '</td>'
-                    //'<td><input type="checkbox" name="novedad" id="novedad' + pelicula.id 
-                    //+ '" disabled ';
-            //if (pelicula.novedad) {
-             //   contenido += 'checked'
-            //}
-            //contenido += '></td><td>' + pelicula.fechaAlquiler + '</td>' +
-                 //   '<td><button id="devolver-btn" onclick= "devolverpelicula(' + pelicula.id 
-                   // + ');" class="btn btn-danger">Devolver pelicula</button></td></tr>';
+                    '<td><input type="checkbox" name="novedad" id="novedad' + destino.id_destino 
+                    + '" disabled ';
+            if (destino.novedad) {
+                contenido += 'checked'
+            }
+            contenido += '></td><td>' + destino.fechaAlquiler + '</td>' +
+                  '<td><button id="devolver-btn" onclick= "devolverDestino(' + destino.id_destino 
+                    + ');" class="btn btn-success">Reservar</button></td></tr>'; //Cancelar Reserva //btn-danger
 
         });
         $("#historial-tbody").html(contenido);
@@ -163,7 +163,7 @@ function modificarUsuario() {
             email: email,
             direccion: direccion,
             ciudad: ciudad,
-            telefono: telefono,
+            telefono: telefono
             //saldo: saldo,
             //premium: premium,
         }),

@@ -11,7 +11,7 @@ $(document).ready(function () {
         
         $("#mi-perfil-btn").attr("href","profile.html?id_usuario=" + id_usuario);
         
-        $("#user-saldo").html(user.saldo.toFixed(2) + "$");
+       // $("#user-saldo").html(user.saldo.toFixed(2) + "$");
 
         getDestino(false, "ASC");
 
@@ -62,16 +62,16 @@ function getDestino(ordenar, orden) {    //getDestino
         }
     });
 }
-function mostrarDestino(destino) {
+function mostrarDestino(destino) { 
 
     let contenido = "";
 
     $.each(destino, function (index, destino) {     //destino
 
         destino = JSON.parse(destino);   //Destino
-        let precio;
+        //let precio;
 
-        if (destino.copias > 0) {
+        /*if (destino.copias > 0) {
 
             if (user.premium) {
 
@@ -86,7 +86,7 @@ function mostrarDestino(destino) {
                 } else {
                     precio = 1;
                 }
-            }
+            } 
 
             contenido += '<tr><th scope="row">' + destino.id_destino + '</th>' +
                     '<td>' + destino.planes + '</td>' +
@@ -94,20 +94,84 @@ function mostrarDestino(destino) {
                     '<td>' + destino.ciudad + '</td>' +
                     //'<td>' + destino.copias + '</td>' +
                     '<td><input type="checkbox" name="novedad" id_destino="novedad' + destino.id_destino + '" disabled ';
-            if (destino.novedad) {
+            /*if (destino.novedad) {
                 contenido += 'checked';
             }
             contenido += '></td>' +
                     '<td>' + precio + '</td>' +
-                    '<td><button onclick="alquilarPelicula(' + destino.id_destino + ',' + precio + ');" class="btn btn-success" ';
+                    '<td><button onclick="pedirReservacion(' + destino.id_destino + ',' + precio + ');" class="btn btn-success" ';
             if (user.saldo < precio) {
                 contenido += ' disabled ';
-            }
+            
 
             contenido += '>Reservar</button></td></tr>'
 
+        }*/
+    });
+    $("#destino-tbody").html(contenido);  //destino-tbody
+    
+}
+function ordenarDestino() { //desde aquí
+
+    if ($("#icono-ordenar").hasClass("fa-sort")) {
+        getDestino(true, "ASC");
+        $("#icono-ordenar").removeClass("fa-sort");
+        $("#icono-ordenar").addClass("fa-sort-down");
+    } else if ($("#icono-ordenar").hasClass("fa-sort-down")) {
+        getDestino(true, "DESC");
+        $("#icono-ordenar").removeClass("fa-sort-down");
+        $("#icono-ordenar").addClass("fa-sort-up");
+    } else if ($("#icono-ordenar").hasClass("fa-sort-up")) {
+        getDestino(false, "ASC");
+        $("#icono-ordenar").removeClass("fa-sort-up");
+        $("#icono-ordenar").addClass("fa-sort");
+    }
+}
+function pedirReservacion(id_destino, precio) {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletReservacionPedir",
+        data: $.param({
+            id_destino: id_destino,
+            id_usuario: id_usuario
+
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+
+            if (parsedResult != false) {
+                restarDinero(precio).then(function () {
+                    location.reload();
+                })
+            } else {
+                console.log("Error en la reserva de la película");
+            }
         }
     });
-    $("#destino-tbody").html(contenido);
 }
 
+
+async function restarDinero(precio) {
+
+    await $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletUsuarioRestarDinero",
+        data: $.param({
+            id_usuario: id_usuario
+            //saldo: parseFloat(user.saldo - precio)
+
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+
+            if (parsedResult != false) {
+                //console.log("Saldo actualizado");
+            } else {
+                console.log("Error en el proceso de pago");
+            }
+        }
+    });
+}

@@ -67,7 +67,7 @@ function registrarUsuario() {
                 email: email,
                 direccion: direccion,
                 ciudad: ciudad,
-                telefono: telefono,
+                telefono: telefono
                                 
             }),
             success: function (result) {
